@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function mostrarCampo() {
     iniciarMatrizClicadas(linhas, colunas);
+    const gameField = document.getElementById("gameField");
     for (let i = 0; i < linhas; i++) {
       const cellRow = document.createElement("div");
       cellRow.classList.add("line");
@@ -91,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
         cellRow.appendChild(cellElement);
-        document.body.appendChild(cellRow);
+        gameField.appendChild(cellRow);
       }
     }
   }
@@ -104,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const value = document.createElement("p");
     switch (campo[linha][coluna]) {
       case -1:
-        value.textContent = "X";
+        value.textContent = "💥";
         cellElement.appendChild(value);
         finishGame();
         break;
@@ -153,6 +154,5 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("start").addEventListener("click", function () {
     document.getElementById("initial").classList.add("hiddenDiv");
     mostrarCampo();
-    console.log(linhas, colunas, minas);
   });
 });

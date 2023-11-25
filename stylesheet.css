@@ -1,0 +1,32 @@
+body {
+  background-color: #ccc;
+}
+.gameField {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cell {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.line {
+  display: flex;
+}
+.hiddenDiv {
+  display: none;
+}
+.blankSpace {
+  background-color: rgb(228, 228, 228);
+}
+.reveledCell {
+  background-color: #a0a0a0;
+}
