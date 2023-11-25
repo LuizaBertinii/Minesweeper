@@ -35,18 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
       let linha = Math.floor(Math.random() * linhas);
       let coluna = Math.floor(Math.random() * colunas);
 
-      // Verifica se a célula já contém uma mina
       if (campo[linha][coluna] !== -1) {
-        campo[linha][coluna] = -1; // -1 representa uma mina
+        campo[linha][coluna] = -1;
         minasAdicionadas++;
       }
     }
 
-    // Calcula e atribui os números nas células adjacentes
     for (let i = 0; i < linhas; i++) {
       for (let j = 0; j < colunas; j++) {
         if (campo[i][j] === -1) {
-          // Se a célula contém uma mina, incrementa as células ao redor
           incrementarCelulasAdjacentes(campo, i, j, linhas, colunas);
         }
       }
@@ -77,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function mostrarCampo() {
     iniciarMatrizClicadas(linhas, colunas);
     const gameField = document.getElementById("gameField");
+    const minasFaltantes = document.getElementById("status");
     for (let i = 0; i < linhas; i++) {
       const cellRow = document.createElement("div");
       cellRow.classList.add("line");
@@ -90,11 +88,33 @@ document.addEventListener("DOMContentLoaded", function () {
             cellsClicadas[i][j] = true;
             revelarCelula(i, j);
           }
+          // assim que a função de colocar bandeira for criada, a condição desse if devera ser alterada
+          if (cellsClicadas[i][j] && campo[i][j] == -1) {
+            contadorMinasFaltantes();
+          }
         });
         cellRow.appendChild(cellElement);
         gameField.appendChild(cellRow);
+        minasFaltantes.textContent = minas;
       }
     }
+    gameField.addEventListener("contextmenu", function (event) {
+      // Impede o comportamento padrão do menu de contexto
+      event.preventDefault();
+
+      // Verifica se o botão direito do mouse foi clicado
+      if (event.button === 2) {
+        console.log("Botão direito do mouse foi clicado!");
+        // Adicione o código que deseja executar quando o botão direito do mouse for clicado
+      }
+    });
+  }
+
+  function contadorMinasFaltantes() {
+    minas = minas - 1;
+    console.log(minas);
+    const minasFaltantes = document.getElementById("status");
+    minasFaltantes.textContent = minas;
   }
 
   function revelarCelula(linha, coluna) {
@@ -107,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
       case -1:
         value.textContent = "💥";
         cellElement.appendChild(value);
-        finishGame();
+        //finishGame();
         break;
       case 0:
         cellElement.classList.add("blankSpace");
@@ -145,14 +165,17 @@ document.addEventListener("DOMContentLoaded", function () {
         cellElement.appendChild(value);
         break;
     }
-    value.parentElement.classList.add("reveledCell");
+    cellElement.classList.add("reveledCell");
   }
 
   function finishGame() {
-    console.log("deu ruim :(");
+    alert("Parece que você encontrou uma bomba :( ");
+    document.getElementById("initial").classList.remove("hiddenDiv");
+    document.getElementById("gameField").classList.add("hiddenDiv");
   }
   document.getElementById("start").addEventListener("click", function () {
     document.getElementById("initial").classList.add("hiddenDiv");
+    document.getElementById("gameField").classList.remove("hiddenDiv");
     mostrarCampo();
   });
 });
