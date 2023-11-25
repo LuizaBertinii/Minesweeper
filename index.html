@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campo Minado</title>
+    <style>
+      .cell {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ccc;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+      .line {
+        display: flex;
+      }
+      .hiddenDiv {
+        display: none;
+      }
+      .blankSpace {
+        background-color: rgb(228, 228, 228);
+      }
+      .reveledCell {
+        background-color: #a0a0a0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="initial">
+      <h2>Olá! Seja Bem-Vindo(a) ao Meu Primeiro Campo Minado :D</h2>
+      <h3>Por favor, escolha o tamanho do campo e o número de minas:</h3>
+      <h4>Linhas: <input type="number" id="rowsSelected" value="10" /></h4>
+      <h4>Colunas: <input type="number" id="colsSelected" value="10" /></h4>
+      <h4>Minas: <input type="number" id="minesSelected" value="25" /></h4>
+      <h4><input type="button" value="Começar!" id="start" /></h4>
+    </div>
+    <div id="game"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
