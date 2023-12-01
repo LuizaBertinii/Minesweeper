@@ -98,16 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
         minasFaltantes.textContent = minas;
       }
     }
-    gameField.addEventListener("contextmenu", function (event) {
-      // Impede o comportamento padrão do menu de contexto
-      event.preventDefault();
-
-      // Verifica se o botão direito do mouse foi clicado
-      if (event.button === 2) {
-        console.log("Botão direito do mouse foi clicado!");
-        // Adicione o código que deseja executar quando o botão direito do mouse for clicado
-      }
-    });
   }
 
   function contadorMinasFaltantes() {
@@ -165,17 +155,17 @@ document.addEventListener("DOMContentLoaded", function () {
         cellElement.appendChild(value);
         break;
     }
-    cellElement.classList.add("reveledCell");
+    campo[linha][coluna] == "-1"
+      ? cellElement.classList.add("reveledCellBomb")
+      : cellElement.classList.add("reveledCell");
   }
 
   function finishGame() {
     alert("Parece que você encontrou uma bomba :( ");
-    document.getElementById("initial").classList.remove("hiddenDiv");
-    document.getElementById("gameField").classList.add("hiddenDiv");
+    mostrarCampo();
   }
   document.getElementById("start").addEventListener("click", function () {
-    document.getElementById("initial").classList.add("hiddenDiv");
-    document.getElementById("gameField").classList.remove("hiddenDiv");
     mostrarCampo();
   });
+  mostrarCampo();
 });

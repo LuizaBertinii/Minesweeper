@@ -12,18 +12,16 @@
     />
   </head>
   <body>
-    <div id="initial">
-      <h2>Olá! Seja Bem-Vindo(a) ao Meu Primeiro Campo Minado :D</h2>
-      <h3>Por favor, escolha o tamanho do campo e o número de minas:</h3>
-      <h4>Linhas: <input type="number" id="rowsSelected" value="10" /></h4>
-      <h4>Colunas: <input type="number" id="colsSelected" value="10" /></h4>
-      <h4>Minas: <input type="number" id="minesSelected" value="25" /></h4>
-      <h4><input type="button" value="Começar!" id="start" /></h4>
+    <div>
+      <h3>
+        Linhas: <input type="number" id="rowsSelected" value="10" /> Colunas:
+        <input type="number" id="colsSelected" value="10" /> Minas:
+        <input type="number" id="minesSelected" value="25" />
+        <input type="button" value="Começar!" id="start" />
+      </h3>
     </div>
-    <div id="gameField" class="hiddenDiv">
-      <p>Minas Faltantes: <p id = "status"></p></p>
-    </div>
-    
+    <p>Minas Faltantes: <span id="status"></span></p>
+    <div id="gameField"></div>
 
     <script src="script.js"></script>
   </body>
