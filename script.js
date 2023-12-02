@@ -71,6 +71,37 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function revelarCelulasAdjacentesSemBomba(
+    campo,
+    linha,
+    coluna,
+    linhas,
+    colunas
+  ) {
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        const novaLinha = linha + i;
+        const novaColuna = coluna + j;
+
+        if (
+          novaLinha >= 0 &&
+          novaLinha < linhas &&
+          novaColuna >= 0 &&
+          novaColuna < colunas &&
+          campo[novaLinha][novaColuna] !== -1
+        ) {
+          if (
+            !cellsClicadas[novaLinha][novaColuna] &&
+            campo[linha][coluna] != -1
+          ) {
+            cellsClicadas[novaLinha][novaColuna] = true;
+            revelarCelula(novaLinha, novaColuna);
+          }
+        }
+      }
+    }
+  }
+
   function mostrarCampo() {
     iniciarMatrizClicadas(linhas, colunas);
     const gameField = document.getElementById("gameField");
@@ -117,10 +148,10 @@ document.addEventListener("DOMContentLoaded", function () {
       case -1:
         value.textContent = "💥";
         cellElement.appendChild(value);
-        //finishGame();
         break;
       case 0:
         cellElement.classList.add("blankSpace");
+        revelarCelulasAdjacentesSemBomba(campo, linha, coluna, linhas, colunas);
         break;
       case 1:
         value.textContent = "1";
@@ -158,6 +189,14 @@ document.addEventListener("DOMContentLoaded", function () {
     campo[linha][coluna] == "-1"
       ? cellElement.classList.add("reveledCellBomb")
       : cellElement.classList.add("reveledCell");
+  }
+
+  function validarPrimeiraCelulaClicada(linhas, colunas) {
+    for (let i = 0; i < linhas; i++) {
+      for (let j = 0; j < colunas; j++) {
+        if (cellsClicadas[i][j] == true) return true;
+      }
+    }
   }
 
   function finishGame() {
