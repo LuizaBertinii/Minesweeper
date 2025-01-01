@@ -1,9 +1,14 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
-  var linhas = document.getElementById("rowsSelected");
-  var colunas = document.getElementById("colsSelected");
-  var minas = document.getElementById("minesSelected");
+const gameFieldBloqueado = document.querySelector('#gameField');
+
+gameFieldBloqueado.addEventListener('contextmenu', (event) => {
+  event.preventDefault(); // Impede a ação padrão
+});
+document.addEventListener("DOMContentLoaded", function () {  
+  let linhas = document.getElementById("rowsSelected");
+  let colunas = document.getElementById("colsSelected");
+  let minas = document.getElementById("minesSelected");
   linhas = linhas == null ? (linhas = 10) : linhas.value;
   colunas = colunas == null ? (colunas = 10) : colunas.value;
   minas = minas == null ? (minas = 25) : minas.value;
@@ -104,8 +109,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function mostrarCampo() {
     iniciarMatrizClicadas(linhas, colunas);
-    const gameField = document.getElementById("gameField");
-    const minasFaltantes = document.getElementById("status");
+    let gameField = document.getElementById("gameField");
+    let minasFaltantes = document.getElementById("status");
     for (let i = 0; i < linhas; i++) {
       const cellRow = document.createElement("div");
       cellRow.classList.add("line");
@@ -148,7 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
       case -1:
         value.textContent = "💥";
         cellElement.appendChild(value);
-        break;
+        finishGame();
+      break;
       case 0:
         cellElement.classList.add("blankSpace");
         revelarCelulasAdjacentesSemBomba(campo, linha, coluna, linhas, colunas);
@@ -199,11 +205,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function limparCampo(){
+    let cleaningGameField = document.getElementById("gameField");
+    while (cleaningGameField.firstChild) {
+      cleaningGameField.removeChild(cleaningGameField.firstChild);
+    }
+  }
+
   function finishGame() {
     alert("Parece que você encontrou uma bomba :( ");
+    limparCampo();
     mostrarCampo();
   }
   document.getElementById("start").addEventListener("click", function () {
+    limparCampo();
     mostrarCampo();
   });
   mostrarCampo();
