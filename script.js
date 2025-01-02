@@ -233,6 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function finishGame() {
     alert("Parece que você encontrou uma bomba :( ");
     limparCampo();
+    campo = criarCampo(linhas, colunas, minas);
     mostrarCampo();
   }
   document.getElementById("start").addEventListener("click", function () {
