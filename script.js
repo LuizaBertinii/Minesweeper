@@ -1,17 +1,14 @@
 "use strict";
 
-const gameFieldBloqueado = document.querySelector('#gameField');
-
-gameFieldBloqueado.addEventListener('contextmenu', (event) => {
-  event.preventDefault(); // Impede a ação padrão
-});
 document.addEventListener("DOMContentLoaded", function () {  
   let linhas = document.getElementById("rowsSelected");
   let colunas = document.getElementById("colsSelected");
   let minas = document.getElementById("minesSelected");
+  let minasFaltantes = document.getElementById("status");
   linhas = linhas == null ? (linhas = 10) : linhas.value;
   colunas = colunas == null ? (colunas = 10) : colunas.value;
   minas = minas == null ? (minas = 25) : minas.value;
+  minasFaltantes = minasFaltantes == null ? (minasFaltantes = minas) : minasFaltantes.value;
 
   let campo = criarCampo(linhas, colunas, minas);
   let cellsClicadas = [];
@@ -129,6 +126,13 @@ document.addEventListener("DOMContentLoaded", function () {
             contadorMinasFaltantes();
           }
         });
+        cellElement.addEventListener('contextmenu', (event) => {
+          event.preventDefault(); // Impede a ação padrão
+          if (!cellsClicadas[i][j]) {
+            cellsClicadas[i][j] = true;
+            incrementarBomba(i, j);
+          }
+        });
         cellRow.appendChild(cellElement);
         gameField.appendChild(cellRow);
         minasFaltantes.textContent = minas;
@@ -141,6 +145,20 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(minas);
     const minasFaltantes = document.getElementById("status");
     minasFaltantes.textContent = minas;
+  }
+
+  function incrementarBomba(linha, coluna) {
+    const cellElement = document.querySelector(
+      `.cell[data-row="${linha}"][data-col="${coluna}"]`
+    );
+
+    const value = document.createElement("p");
+    value.textContent = "🚩";
+    cellElement.appendChild(value);
+
+    minasFaltantes = minasFaltantes - 1;
+    minasFaltantes.textContent = minasFaltantes;
+
   }
 
   function revelarCelula(linha, coluna) {
